@@ -69,7 +69,7 @@
     }
 
     .shell{
-      width: min(920px, 100%);
+      width: min(960px, 100%);
     }
 
     .topHint{
@@ -140,7 +140,7 @@
     }
     .miniBtn:active{ transform: translateY(1px); }
 
-    .dateRailWrap{
+    .monthGridWrap{
       background: rgba(255,255,255,.55);
       border: 1px solid var(--hair);
       border-radius: var(--radius-lg);
@@ -150,11 +150,57 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
+    .monthHeader{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 2px 2px 10px;
+    }
+
+    .monthTitle{
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+    }
+
+    .monthSub{
+      margin-top: 4px;
+      font-size: 12px;
+      color: rgba(20,20,26,.45);
+      font-weight: 700;
+    }
+
+    .monthNav{
+      display: flex;
+      gap: 6px;
+    }
+
+    .navBtn{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--hair);
+      background: rgba(255,255,255,.8);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .navBtn:active{ transform: translateY(1px); }
+    .navBtn span{
+      display: block;
+      width: 8px; height: 8px;
+      border-left: 2px solid rgba(20,20,26,.6);
+      border-bottom: 2px solid rgba(20,20,26,.6);
+      transform: rotate(45deg);
+    }
+    .navBtn.next span{ transform: rotate(-135deg); }
+
     .dowRow{
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 10px;
-      padding: 0 2px 10px;
+      padding: 0 2px 8px;
       color: rgba(20,20,26,.30);
       font-weight: 700;
       font-size: 12px;
@@ -163,56 +209,90 @@
     }
     .dowRow span{ text-align: center; }
 
-    .dateRail{
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 2px 2px 6px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+    .monthGrid{
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
     }
-    .dateRail::-webkit-scrollbar{ height: 6px; }
-    .dateRail::-webkit-scrollbar-thumb{ background: rgba(20,20,26,.12); border-radius: 999px; }
-    .dateRail::-webkit-scrollbar-track{ background: transparent; }
 
-    .dayBtn{
-      min-width: 56px;
-      height: 56px;
-      border-radius: 18px;
+    .monthCell{
+      min-height: 74px;
+      border-radius: 16px;
       border: 1px solid transparent;
-      background: rgba(255,255,255,.0);
-      display: grid;
-      place-items: center;
-      scroll-snap-align: start;
+      background: rgba(255,255,255,.5);
+      padding: 8px 8px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       cursor: pointer;
-      user-select: none;
+      position: relative;
     }
-    .dayNum{
-      width: 38px;
-      height: 38px;
+    .monthCell:hover{ border-color: rgba(0,122,255,.25); }
+    .monthCell.is-muted{
+      color: rgba(20,20,26,.28);
+      background: rgba(255,255,255,.35);
+    }
+    .monthCell.is-selected{
+      border-color: rgba(0,122,255,.45);
+      background: rgba(0,122,255,.08);
+    }
+    .monthCell.is-today::after{
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      display: grid;
-      place-items: center;
-      font-size: 20px;
+      background: var(--blue);
+    }
+
+    .monthDay{
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: -.2px;
-      color: rgba(20,20,26,.86);
-      background: transparent;
-      transition: background .12s ease, color .12s ease, transform .12s ease;
     }
-    .dayBtn:hover .dayNum{
-      background: rgba(20,20,26,.05);
+
+    .countPill{
+      align-self: flex-start;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(0,122,255,.9);
+      background: rgba(0,122,255,.12);
     }
-    .dayBtn[aria-selected="true"] .dayNum{
-      background: var(--blue-weak);
-      color: var(--blue);
+
+    .dots{
+      display: flex;
+      gap: 4px;
+      margin-top: auto;
     }
-    .dayBtn:active .dayNum{ transform: scale(.98); }
+    .dot{
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(0,122,255,.4);
+    }
 
     .content{
       margin-top: 14px;
       display: grid;
       gap: 14px;
+    }
+
+    .sectionHeader{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 2px 6px;
+    }
+
+    .sectionTitle{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
     }
 
     .emptyState{
@@ -239,10 +319,10 @@
     }
 
     .cardTitle{
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 800;
       letter-spacing: -.4px;
-      line-height: 1.05;
+      line-height: 1.1;
       margin: 0;
       flex: 1;
       min-width: 0;
@@ -258,6 +338,8 @@
       letter-spacing: .2px;
       font-variant-numeric: tabular-nums;
       user-select: none;
+      text-align: right;
+      max-width: 220px;
     }
 
     .divider{
@@ -268,9 +350,14 @@
 
     .rowMeta{
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
+    }
+
+    .metaLeft{
+      display: grid;
+      gap: 6px;
     }
 
     .source{
@@ -278,6 +365,12 @@
       font-weight: 700;
       letter-spacing: -.1px;
       user-select: none;
+    }
+
+    .rangeText{
+      font-size: 12px;
+      color: rgba(20,20,26,.45);
+      font-weight: 700;
     }
 
     .tagPill{
@@ -384,7 +477,7 @@
     .modalOverlay[aria-hidden="false"]{ display: flex; }
 
     .modal{
-      width: min(560px, 100%);
+      width: min(600px, 100%);
       background: rgba(255,255,255,.92);
       border-radius: 26px;
       border: 1px solid rgba(20,20,26,.10);
@@ -440,6 +533,15 @@
       line-height: 1.35;
     }
 
+    .toggleRow{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 2px 0;
+      font-weight: 800;
+      color: rgba(20,20,26,.7);
+    }
+
     .modalFooter{
       display: flex;
       gap: 10px;
@@ -476,7 +578,7 @@
 
     @media (min-width: 900px){
       .app{ padding-bottom: calc(44px + var(--safe-bottom)); }
-      .fab{ left: calc(50% + 380px); transform: translateX(-50%); }
+      .fab{ left: calc(50% + 400px); transform: translateX(-50%); }
       .fab:active{ transform: translateX(-50%) translateY(1px); }
     }
 
@@ -489,7 +591,7 @@
 <body>
   <div class="app">
     <div class="shell" role="application" aria-label="DayRail">
-      <div class="topHint">Picker</div>
+      <div class="topHint">Calendar</div>
 
       <div class="topBar">
         <button class="monthBtn" id="monthBtn" type="button" aria-label="월 선택">
@@ -500,18 +602,35 @@
         <div class="title" id="titleLabel">12월 25일, 오늘</div>
 
         <div class="ghostRight">
+          <button class="miniBtn" id="prevMonthBtn" type="button" aria-label="이전 달">◀︎</button>
+          <button class="miniBtn" id="nextMonthBtn" type="button" aria-label="다음 달">▶︎</button>
           <button class="miniBtn" id="todayBtn" type="button">오늘</button>
         </div>
       </div>
 
-      <div class="dateRailWrap" aria-label="날짜 탐색">
+      <section class="monthGridWrap" aria-label="월 달력">
+        <div class="monthHeader">
+          <div>
+            <div class="monthTitle" id="monthTitle">2024년 12월</div>
+            <div class="monthSub" id="monthSub">이 달 일정 0개</div>
+          </div>
+          <div class="monthNav">
+            <button class="navBtn prev" id="prevMonthMini" type="button" aria-label="이전 달"><span aria-hidden="true"></span></button>
+            <button class="navBtn next" id="nextMonthMini" type="button" aria-label="다음 달"><span aria-hidden="true"></span></button>
+          </div>
+        </div>
         <div class="dowRow" aria-hidden="true">
           <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
         </div>
-        <div class="dateRail" id="dateRail"></div>
-      </div>
+        <div class="monthGrid" id="monthGrid"></div>
+      </section>
 
-      <main class="content" id="content"></main>
+      <main class="content" id="content">
+        <div class="sectionHeader">
+          <h2 class="sectionTitle">일정</h2>
+          <div class="monthSub" id="daySummary">오늘 일정 0개</div>
+        </div>
+      </main>
     </div>
   </div>
 
@@ -534,10 +653,34 @@
 
         <div class="split">
           <div class="field">
-            <div class="label">시간</div>
-            <input class="input" id="fTime" type="time" />
+            <div class="label">시작 날짜</div>
+            <input class="input" id="fStartDate" type="date" />
           </div>
 
+          <div class="field">
+            <div class="label">시작 시간</div>
+            <input class="input" id="fStartTime" type="time" />
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <div class="label">종료 날짜</div>
+            <input class="input" id="fEndDate" type="date" />
+          </div>
+
+          <div class="field">
+            <div class="label">종료 시간</div>
+            <input class="input" id="fEndTime" type="time" />
+          </div>
+        </div>
+
+        <label class="toggleRow">
+          <input id="fAllDay" type="checkbox" />
+          하루 종일
+        </label>
+
+        <div class="split">
           <div class="field">
             <div class="label">태그</div>
             <select class="select" id="fTag">
@@ -549,17 +692,10 @@
               <option value="urgent">Urgent</option>
             </select>
           </div>
-        </div>
 
-        <div class="split">
           <div class="field">
             <div class="label">소스</div>
             <input class="input" id="fSource" type="text" placeholder="Calendar" autocomplete="off" />
-          </div>
-
-          <div class="field">
-            <div class="label">날짜</div>
-            <input class="input" id="fDate" type="date" />
           </div>
         </div>
 
@@ -615,13 +751,22 @@
       x.setHours(0,0,0,0);
       return x;
     }
+    function startOfMonth(d){
+      return new Date(d.getFullYear(), d.getMonth(), 1);
+    }
     function addDays(d, n){
       const x = new Date(d);
       x.setDate(x.getDate()+n);
       return x;
     }
+    function addMonths(d, n){
+      return new Date(d.getFullYear(), d.getMonth()+n, 1);
+    }
     function isSameDay(a,b){
       return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+    }
+    function isSameMonth(a,b){
+      return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth();
     }
     function formatTitle(d){
       const today = new Date(); today.setHours(0,0,0,0);
@@ -631,6 +776,9 @@
     }
     function formatMonth(d){
       return new Intl.DateTimeFormat("ko-KR", { month:"long" }).format(d);
+    }
+    function formatMonthTitle(d){
+      return new Intl.DateTimeFormat("ko-KR", { year:"numeric", month:"long" }).format(d);
     }
     function timeLabel(t){
       if(!t) return "All-day";
@@ -644,16 +792,57 @@
       return Math.random().toString(16).slice(2) + Date.now().toString(16);
     }
 
+    function normalizeEvent(event){
+      const startDate = event.startDate || event.date || isoDate(new Date());
+      const endDate = event.endDate || startDate;
+      return {
+        id: event.id || uuid(),
+        title: event.title || "",
+        startDate,
+        endDate,
+        startTime: event.startTime || event.time || "",
+        endTime: event.endTime || "",
+        tag: event.tag || "todo",
+        source: event.source || "Calendar",
+        note: event.note || "",
+        createdAt: event.createdAt || Date.now(),
+        updatedAt: event.updatedAt || Date.now()
+      };
+    }
+
+    function migrateStore(data){
+      if(data && Array.isArray(data.events)){
+        return { version: 2, events: data.events.map(normalizeEvent) };
+      }
+
+      if(data && data.items){
+        const events = [];
+        for(const [dayIso, items] of Object.entries(data.items)){
+          for(const item of items){
+            events.push(normalizeEvent({
+              ...item,
+              startDate: dayIso,
+              endDate: dayIso,
+              startTime: item.time || "",
+              endTime: ""
+            }));
+          }
+        }
+        return { version: 2, events };
+      }
+
+      return { version: 2, events: [] };
+    }
+
     function loadStore(){
       try{
         const raw = localStorage.getItem(STORAGE_KEY);
-        if(!raw) return { version: 1, items: {} };
+        if(!raw) return { version: 2, events: [] };
         const data = JSON.parse(raw);
         if(!data || typeof data !== "object") throw new Error("bad");
-        if(!data.items) data.items = {};
-        return data;
+        return migrateStore(data);
       }catch(e){
-        return { version: 1, items: {} };
+        return { version: 2, events: [] };
       }
     }
     function saveStore(){
@@ -664,99 +853,154 @@
 
     const state = {
       selected: new Date(),
-      railAnchor: startOfWeek(new Date()),
-      railDays: 28, // 4주치
-      editingId: null,
-      editingDate: null
+      viewMonth: startOfMonth(new Date()),
+      editingId: null
     };
 
-    const dateRail = $("#dateRail");
     const content = $("#content");
     const titleLabel = $("#titleLabel");
     const monthBtnLabel = $("#monthBtnLabel");
+    const monthTitle = $("#monthTitle");
+    const monthSub = $("#monthSub");
+    const monthGrid = $("#monthGrid");
+    const daySummary = $("#daySummary");
 
     const modalOverlay = $("#modalOverlay");
     const monthPicker = $("#monthPicker");
 
     const fTitle = $("#fTitle");
-    const fTime  = $("#fTime");
+    const fStartDate = $("#fStartDate");
+    const fStartTime  = $("#fStartTime");
+    const fEndDate  = $("#fEndDate");
+    const fEndTime  = $("#fEndTime");
+    const fAllDay = $("#fAllDay");
     const fTag   = $("#fTag");
     const fSource= $("#fSource");
-    const fDate  = $("#fDate");
     const fNote  = $("#fNote");
 
     const modalTitle = $("#modalTitle");
     const deleteBtn  = $("#deleteBtn");
 
-    function ensureDayBucket(iso){
-      if(!store.items[iso]) store.items[iso] = [];
-      return store.items[iso];
+    function eventsForDay(iso){
+      return store.events.filter(event => event.startDate <= iso && event.endDate >= iso);
     }
 
-    function listForDay(iso){
-      const arr = (store.items[iso] || []).slice();
-      arr.sort((a,b)=>{
-        const ta = a.time || "99:99";
-        const tb = b.time || "99:99";
-        if(ta < tb) return -1;
-        if(ta > tb) return 1;
-        return (a.updatedAt||0) - (b.updatedAt||0);
-      });
-      return arr;
+    function eventsInMonth(viewDate){
+      const monthStart = isoDate(startOfMonth(viewDate));
+      const monthEnd = isoDate(addDays(addMonths(startOfMonth(viewDate), 1), -1));
+      return store.events.filter(event => event.startDate <= monthEnd && event.endDate >= monthStart);
     }
 
-    function setSelected(d, {scrollIntoView=true}={}){
+    function eventSort(a,b){
+      const aKey = a.startTime || "99:99";
+      const bKey = b.startTime || "99:99";
+      if(aKey < bKey) return -1;
+      if(aKey > bKey) return 1;
+      return (a.updatedAt||0) - (b.updatedAt||0);
+    }
+
+    function setSelected(d){
       const x = new Date(d); x.setHours(0,0,0,0);
       state.selected = x;
 
       titleLabel.textContent = formatTitle(x);
       monthBtnLabel.textContent = formatMonth(x).replace("월","월");
-      renderList();
 
-      const selIso = isoDate(x);
-      const btn = dateRail.querySelector(`[data-iso="${selIso}"]`);
-      if(btn){
-        $$(`.dayBtn`, dateRail).forEach(b => b.setAttribute("aria-selected","false"));
-        btn.setAttribute("aria-selected","true");
-        if(scrollIntoView) btn.scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+      if(!isSameMonth(x, state.viewMonth)){
+        state.viewMonth = startOfMonth(x);
+      }
+
+      renderMonthGrid();
+      renderList();
+    }
+
+    function setViewMonth(d){
+      state.viewMonth = startOfMonth(d);
+      monthBtnLabel.textContent = formatMonth(state.viewMonth).replace("월","월");
+      renderMonthGrid();
+    }
+
+    function renderMonthGrid(){
+      monthGrid.innerHTML = "";
+      const today = new Date(); today.setHours(0,0,0,0);
+
+      monthTitle.textContent = formatMonthTitle(state.viewMonth);
+
+      const monthEvents = eventsInMonth(state.viewMonth);
+      monthSub.textContent = `이 달 일정 ${monthEvents.length}개`;
+
+      const firstDay = startOfMonth(state.viewMonth);
+      const gridStart = startOfWeek(firstDay);
+
+      for(let i=0;i<42;i++){
+        const day = addDays(gridStart, i);
+        const iso = isoDate(day);
+        const inMonth = day.getMonth() === state.viewMonth.getMonth();
+        const cell = document.createElement("button");
+        cell.type = "button";
+        cell.className = "monthCell" + (inMonth ? "" : " is-muted");
+        if(isSameDay(day, today)) cell.className += " is-today";
+        if(isSameDay(day, state.selected)) cell.className += " is-selected";
+        cell.setAttribute("aria-label", new Intl.DateTimeFormat("ko-KR", { month:"long", day:"numeric", weekday:"short" }).format(day));
+
+        const dayNum = document.createElement("div");
+        dayNum.className = "monthDay";
+        dayNum.textContent = day.getDate();
+
+        const dayEvents = eventsForDay(iso);
+
+        cell.appendChild(dayNum);
+
+        if(dayEvents.length){
+          const count = document.createElement("div");
+          count.className = "countPill";
+          count.textContent = `${dayEvents.length}개`;
+          cell.appendChild(count);
+        }
+
+        const dots = document.createElement("div");
+        dots.className = "dots";
+        dayEvents.slice(0,3).forEach(() => {
+          const dot = document.createElement("span");
+          dot.className = "dot";
+          dots.appendChild(dot);
+        });
+
+        cell.appendChild(dots);
+        cell.addEventListener("click", () => setSelected(day));
+        monthGrid.appendChild(cell);
       }
     }
 
-    function renderRail(){
-      dateRail.innerHTML = "";
-      const today = new Date(); today.setHours(0,0,0,0);
-
-      for(let i=0;i<state.railDays;i++){
-        const d = addDays(state.railAnchor, i);
-        const iso = isoDate(d);
-
-        const btn = document.createElement("button");
-        btn.className = "dayBtn";
-        btn.type = "button";
-        btn.dataset.iso = iso;
-        btn.setAttribute("aria-selected", isSameDay(d, state.selected) ? "true" : "false");
-        btn.setAttribute("aria-label", new Intl.DateTimeFormat("ko-KR", { month:"long", day:"numeric", weekday:"short" }).format(d));
-
-        const num = document.createElement("div");
-        num.className = "dayNum";
-        num.textContent = d.getDate();
-
-        btn.appendChild(num);
-        btn.addEventListener("click", () => setSelected(d));
-        dateRail.appendChild(btn);
+    function timeRangeLabel(event){
+      const sameDay = event.startDate === event.endDate;
+      if(!event.startTime && !event.endTime){
+        return sameDay ? "All-day" : "All-day · Multi-day";
       }
+      if(sameDay){
+        if(event.startTime && event.endTime){
+          return `${timeLabel(event.startTime)} – ${timeLabel(event.endTime)}`;
+        }
+        return timeLabel(event.startTime || event.endTime);
+      }
+      const startLabel = `${event.startDate}${event.startTime ? ` ${timeLabel(event.startTime)}` : ""}`;
+      const endLabel = `${event.endDate}${event.endTime ? ` ${timeLabel(event.endTime)}` : ""}`;
+      return `${startLabel} → ${endLabel}`;
+    }
 
-      // 최초 로드 시 오늘 근처로 스크롤
-      const todayIso = isoDate(today);
-      const btnToday = dateRail.querySelector(`[data-iso="${todayIso}"]`);
-      if(btnToday) btnToday.scrollIntoView({behavior:"instant", inline:"center"});
+    function rangeMetaLabel(event){
+      if(event.startDate === event.endDate) return "";
+      return `${event.startDate} → ${event.endDate}`;
     }
 
     function renderList(){
       const iso = isoDate(state.selected);
-      const items = listForDay(iso);
+      const items = eventsForDay(iso).slice().sort(eventSort);
 
-      content.innerHTML = "";
+      $$(`.card, .emptyState`, content).forEach(node => node.remove());
+
+      daySummary.textContent = `${iso} 일정 ${items.length}개`;
+
       if(items.length === 0){
         const empty = document.createElement("div");
         empty.className = "emptyState";
@@ -779,7 +1023,7 @@
 
         const time = document.createElement("div");
         time.className = "timePill";
-        time.textContent = timeLabel(item.time);
+        time.textContent = timeRangeLabel(item);
 
         rowTop.appendChild(h);
         rowTop.appendChild(time);
@@ -790,16 +1034,29 @@
         const rowMeta = document.createElement("div");
         rowMeta.className = "rowMeta";
 
+        const metaLeft = document.createElement("div");
+        metaLeft.className = "metaLeft";
+
         const src = document.createElement("div");
         src.className = "source";
         src.textContent = item.source || "Calendar";
+
+        metaLeft.appendChild(src);
+
+        const rangeLabel = rangeMetaLabel(item);
+        if(rangeLabel){
+          const range = document.createElement("div");
+          range.className = "rangeText";
+          range.textContent = rangeLabel;
+          metaLeft.appendChild(range);
+        }
 
         const tag = document.createElement("div");
         const tagInfo = TAGS[item.tag] || TAGS.todo;
         tag.className = `tagPill ${tagInfo.className}`;
         tag.textContent = tagInfo.label;
 
-        rowMeta.appendChild(src);
+        rowMeta.appendChild(metaLeft);
         rowMeta.appendChild(tag);
 
         const noteWrap = document.createElement("div");
@@ -809,12 +1066,10 @@
         ta.placeholder = "Write Something...";
         ta.value = item.note || "";
         ta.addEventListener("input", () => {
-          const isoHere = isoDate(state.selected);
-          const bucket = ensureDayBucket(isoHere);
-          const idx = bucket.findIndex(x => x.id === item.id);
-          if(idx >= 0){
-            bucket[idx].note = ta.value;
-            bucket[idx].updatedAt = Date.now();
+          const hit = findEventById(item.id);
+          if(hit){
+            hit.note = ta.value;
+            hit.updatedAt = Date.now();
             saveStore();
           }
         });
@@ -828,14 +1083,15 @@
         editBtn.className = "linkBtn";
         editBtn.type = "button";
         editBtn.textContent = "편집";
-        editBtn.addEventListener("click", () => openEdit(item.id, iso));
+        editBtn.addEventListener("click", () => openEdit(item.id));
 
         const delBtn = document.createElement("button");
         delBtn.className = "linkBtn danger";
         delBtn.type = "button";
         delBtn.textContent = "삭제";
         delBtn.addEventListener("click", () => {
-          removeItem(iso, item.id);
+          removeEvent(item.id);
+          renderMonthGrid();
           renderList();
         });
 
@@ -861,140 +1117,155 @@
       modalOverlay.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
       state.editingId = null;
-      state.editingDate = null;
+    }
+
+    function setAllDay(isAllDay){
+      fAllDay.checked = isAllDay;
+      fStartTime.disabled = isAllDay;
+      fEndTime.disabled = isAllDay;
+      if(isAllDay){
+        fStartTime.value = "";
+        fEndTime.value = "";
+      }
     }
 
     function openNew(){
       state.editingId = null;
-      state.editingDate = isoDate(state.selected);
 
       modalTitle.textContent = "새 일정";
       deleteBtn.style.visibility = "hidden";
 
+      const iso = isoDate(state.selected);
       fTitle.value = "";
-      fTime.value = "";
+      fStartDate.value = iso;
+      fStartTime.value = "";
+      fEndDate.value = iso;
+      fEndTime.value = "";
+      setAllDay(true);
       fTag.value = "todo";
       fSource.value = "Calendar";
-      fDate.value = state.editingDate;
       fNote.value = "";
 
       openModal();
     }
 
-    function findItemById(id){
-      for(const [dayIso, items] of Object.entries(store.items)){
-        const idx = items.findIndex(x => x.id === id);
-        if(idx >= 0) return { dayIso, idx, item: items[idx] };
-      }
-      return null;
+    function findEventById(id){
+      return store.events.find(event => event.id === id) || null;
     }
 
-    function openEdit(id, dayIso){
-      const hit = findItemById(id);
+    function openEdit(id){
+      const hit = findEventById(id);
       if(!hit) return;
 
       state.editingId = id;
-      state.editingDate = hit.dayIso;
 
       modalTitle.textContent = "일정 편집";
       deleteBtn.style.visibility = "visible";
 
-      fTitle.value = hit.item.title || "";
-      fTime.value = hit.item.time || "";
-      fTag.value = hit.item.tag || "todo";
-      fSource.value = hit.item.source || "Calendar";
-      fDate.value = hit.dayIso;
-      fNote.value = hit.item.note || "";
+      fTitle.value = hit.title || "";
+      fStartDate.value = hit.startDate;
+      fStartTime.value = hit.startTime || "";
+      fEndDate.value = hit.endDate || hit.startDate;
+      fEndTime.value = hit.endTime || "";
+      setAllDay(!hit.startTime && !hit.endTime);
+      fTag.value = hit.tag || "todo";
+      fSource.value = hit.source || "Calendar";
+      fNote.value = hit.note || "";
 
       openModal();
     }
 
     function upsertFromForm(){
       const title = (fTitle.value || "").trim();
-      const time  = (fTime.value || "").trim();
+      const startDate = fStartDate.value || isoDate(state.selected);
+      const endDate = fEndDate.value || startDate;
+      const startTime = fAllDay.checked ? "" : (fStartTime.value || "").trim();
+      const endTime = fAllDay.checked ? "" : (fEndTime.value || "").trim();
       const tag   = fTag.value;
       const source= (fSource.value || "").trim();
-      const dateIso = fDate.value || isoDate(state.selected);
       const note  = (fNote.value || "").trim();
 
       if(!title){
         fTitle.focus();
-        return;
+        return false;
       }
 
       const now = Date.now();
 
       if(state.editingId){
-        const hit = findItemById(state.editingId);
-        if(!hit) return;
+        const hit = findEventById(state.editingId);
+        if(!hit) return false;
 
-        const item = hit.item;
-        item.title = title;
-        item.time = time || "";
-        item.tag = tag;
-        item.source = source || "Calendar";
-        item.note = note;
-        item.updatedAt = now;
-
-        if(hit.dayIso !== dateIso){
-          // 날짜 이동
-          store.items[hit.dayIso].splice(hit.idx,1);
-          ensureDayBucket(dateIso).push(item);
-          if(store.items[hit.dayIso].length === 0) delete store.items[hit.dayIso];
-        }
+        Object.assign(hit, {
+          title,
+          startDate,
+          endDate,
+          startTime,
+          endTime,
+          tag,
+          source: source || "Calendar",
+          note,
+          updatedAt: now
+        });
 
         saveStore();
-        return;
+        return true;
       }
 
-      const item = {
+      const event = normalizeEvent({
         id: uuid(),
         title,
-        time: time || "",
+        startDate,
+        endDate,
+        startTime,
+        endTime,
         tag,
         source: source || "Calendar",
         note,
         createdAt: now,
         updatedAt: now
-      };
+      });
 
-      ensureDayBucket(dateIso).push(item);
+      store.events.push(event);
       saveStore();
+      return true;
     }
 
-    function removeItem(dayIso, id){
-      const bucket = store.items[dayIso];
-      if(!bucket) return;
-      const idx = bucket.findIndex(x => x.id === id);
+    function removeEvent(id){
+      const idx = store.events.findIndex(event => event.id === id);
       if(idx >= 0){
-        bucket.splice(idx,1);
-        if(bucket.length === 0) delete store.items[dayIso];
+        store.events.splice(idx,1);
         saveStore();
       }
     }
 
     function deleteCurrent(){
       if(!state.editingId) return;
-      const hit = findItemById(state.editingId);
-      if(!hit) return;
-      removeItem(hit.dayIso, state.editingId);
+      removeEvent(state.editingId);
     }
 
     // Controls
     $("#addBtn").addEventListener("click", openNew);
     $("#todayBtn").addEventListener("click", () => {
       const t = new Date(); t.setHours(0,0,0,0);
-      // 레일 앵커가 너무 멀면 재설정
-      const deltaDays = Math.round((t - state.railAnchor) / (24*3600*1000));
-      if(deltaDays < 0 || deltaDays > state.railDays-1){
-        state.railAnchor = startOfWeek(t);
-        renderRail();
-      }
       setSelected(t);
     });
 
+    $("#prevMonthBtn").addEventListener("click", () => {
+      setViewMonth(addMonths(state.viewMonth, -1));
+    });
+    $("#nextMonthBtn").addEventListener("click", () => {
+      setViewMonth(addMonths(state.viewMonth, 1));
+    });
+    $("#prevMonthMini").addEventListener("click", () => {
+      setViewMonth(addMonths(state.viewMonth, -1));
+    });
+    $("#nextMonthMini").addEventListener("click", () => {
+      setViewMonth(addMonths(state.viewMonth, 1));
+    });
+
     $("#monthBtn").addEventListener("click", () => {
-      const d = state.selected;
+      const d = state.viewMonth;
       monthPicker.value = `${d.getFullYear()}-${pad2(d.getMonth()+1)}`;
       monthPicker.showPicker?.();
       monthPicker.click();
@@ -1005,8 +1276,7 @@
       const [y,m] = monthPicker.value.split("-").map(Number);
       const d = new Date(y, m-1, 1);
       d.setHours(0,0,0,0);
-      state.railAnchor = startOfWeek(d);
-      renderRail();
+      setViewMonth(d);
       setSelected(d);
     });
 
@@ -1017,24 +1287,23 @@
       if(e.target === modalOverlay) closeModal();
     });
 
+    fAllDay.addEventListener("change", () => {
+      setAllDay(fAllDay.checked);
+    });
+
     $("#saveBtn").addEventListener("click", () => {
-      upsertFromForm();
+      if(!upsertFromForm()) return;
       closeModal();
 
-      // 편집 날짜가 현재 선택 날짜와 다를 수 있으니, 폼 날짜로 이동
-      const target = parseIsoDate(fDate.value || isoDate(state.selected));
-      // 레일 범위 밖이면 앵커 갱신
-      const deltaDays = Math.round((target - state.railAnchor) / (24*3600*1000));
-      if(deltaDays < 0 || deltaDays > state.railDays-1){
-        state.railAnchor = startOfWeek(target);
-        renderRail();
-      }
+      const target = parseIsoDate(fStartDate.value || isoDate(state.selected));
       setSelected(target);
+      renderMonthGrid();
     });
 
     $("#deleteBtn").addEventListener("click", () => {
       deleteCurrent();
       closeModal();
+      renderMonthGrid();
       renderList();
     });
 
@@ -1043,17 +1312,18 @@
       if(modalOverlay.getAttribute("aria-hidden")==="false"){
         if(e.key === "Escape") closeModal();
         if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "enter"){
-          upsertFromForm();
+          if(!upsertFromForm()) return;
           closeModal();
+          renderMonthGrid();
           renderList();
         }
         return;
       }
 
       if(e.key === "ArrowLeft"){
-        setSelected(addDays(state.selected, -1), {scrollIntoView:true});
+        setSelected(addDays(state.selected, -1));
       }else if(e.key === "ArrowRight"){
-        setSelected(addDays(state.selected, 1), {scrollIntoView:true});
+        setSelected(addDays(state.selected, 1));
       }else if(e.key.toLowerCase() === "n"){
         openNew();
       }
@@ -1061,15 +1331,14 @@
 
     // Seed example items only on first run
     function seedIfEmpty(){
-      const hasAny = Object.keys(store.items).length > 0;
-      if(hasAny) return;
+      if(store.events.length > 0) return;
 
       const today = new Date(); today.setHours(0,0,0,0);
-      const iso = isoDate(today);
+      const tomorrow = addDays(today, 1);
 
-      store.items[iso] = [
-        { id: uuid(), title: "Title", time:"09:40", tag:"todo", source:"Calendar", note:"", createdAt: Date.now(), updatedAt: Date.now() },
-        { id: uuid(), title: "Title", time:"00:30", tag:"workshop", source:"Calendar", note:"", createdAt: Date.now(), updatedAt: Date.now() }
+      store.events = [
+        normalizeEvent({ id: uuid(), title: "기획 싱크", startDate: isoDate(today), endDate: isoDate(today), startTime:"09:40", endTime:"10:20", tag:"todo", source:"Calendar", note:"프로젝트 목표 정리", createdAt: Date.now(), updatedAt: Date.now() }),
+        normalizeEvent({ id: uuid(), title: "워크숍", startDate: isoDate(tomorrow), endDate: isoDate(tomorrow), startTime:"14:00", endTime:"16:00", tag:"workshop", source:"Calendar", note:"팀 스프린트 워크숍", createdAt: Date.now(), updatedAt: Date.now() })
       ];
       saveStore();
     }
@@ -1083,8 +1352,9 @@
     }
 
     seedIfEmpty();
-    renderRail();
-    setSelected(new Date(), {scrollIntoView:true});
+    setSelected(new Date());
+    renderMonthGrid();
+    renderList();
     registerSW();
   </script>
 </body>
